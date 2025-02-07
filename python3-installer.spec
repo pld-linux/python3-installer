@@ -13,6 +13,7 @@ Group:		Libraries/Python
 Source0:	https://pypi.debian.net/installer/%{module}-%{version}.tar.gz
 # Source0-md5:	d961d1105c9270049528b1167ed021bc
 URL:		https://pypi.org/project/installer/
+BuildRequires:	python3-build
 BuildRequires:	python3-installer
 BuildRequires:	python3-modules >= 1:3.2
 %if %{with tests}
