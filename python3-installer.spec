@@ -21,14 +21,10 @@ BuildRequires:	python3-modules >= 1:3.2
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 2.044
-# when using /usr/bin/env or other in-place substitutions
-#BuildRequires:	sed >= 4.0
 %if %{with doc}
 BuildRequires:	sphinx-pdg-3
-# or
-BuildRequires:	python3-tox
+BuildRequires:	python3-sphinx_argparse_cli
 %endif
-# replace with other requires if defined in setup.py
 Requires:	python3-modules >= 1:3.2
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -56,15 +52,15 @@ Dokumentacja API modułu Pythona %{module}.
 %py3_build_pyproject
 
 %if %{with tests}
-# use explicit plugins list for reliable builds (delete PYTEST_PLUGINS if empty)
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTEST_PLUGINS= \
 %{__python3} -m pytest tests
 %endif
 
 %if %{with doc}
-%{__make} -C docs html \
-	SPHINXBUILD=sphinx-build-3
+cd docs
+sphinx-build-3 -b html -d _build/doctrees   . _build/html
+cd ..
 rm -rf docs/_build/html/_sources
 %endif
 
