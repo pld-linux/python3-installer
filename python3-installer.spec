@@ -1,20 +1,26 @@
 # Conditional build:
 %bcond_without	doc	# API documentation
 %bcond_without	tests	# unit tests
+%bcond_with	bootstrap	# bootsrapping without build and install installed
+
+%if %{with bootstrap}
+%undefine	with_doc
+%undefine	with_tests
+%endif
 
 %define		module	installer
 Summary:	A library for installing Python wheels
 # Name must match the python module/package name (as on pypi or in 'import' statement)
 Name:		python3-%{module}
 Version:	0.7.0
-Release:	2
+Release:	2.1
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://pypi.debian.net/installer/%{module}-%{version}.tar.gz
 # Source0-md5:	d961d1105c9270049528b1167ed021bc
 URL:		https://pypi.org/project/installer/
 BuildRequires:	python3-build
-BuildRequires:	python3-installer
+%{!?with_bootstrap:BuildRequires:	python3-installer}
 BuildRequires:	python3-modules >= 1:3.2
 %if %{with tests}
 #BuildRequires:	python3-
@@ -67,6 +73,9 @@ rm -rf docs/_build/html/_sources
 %install
 rm -rf $RPM_BUILD_ROOT
 
+%if %{with bootstrap}
+export PYTHONPATH=$(pwd)/src
+%endif
 %py3_install_pyproject
 
 %clean
