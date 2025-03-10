@@ -7,7 +7,7 @@ Summary:	A library for installing Python wheels
 # Name must match the python module/package name (as on pypi or in 'import' statement)
 Name:		python3-%{module}
 Version:	0.7.0
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://pypi.debian.net/installer/%{module}-%{version}.tar.gz
