@@ -8,6 +8,10 @@
 %undefine	with_tests
 %endif
 
+%ifarch x32
+%undefine	with_doc
+%endif
+
 %define		module	installer
 Summary:	A library for installing Python wheels
 # Name must match the python module/package name (as on pypi or in 'import' statement)
