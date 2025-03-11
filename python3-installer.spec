@@ -13,7 +13,7 @@ Summary:	A library for installing Python wheels
 # Name must match the python module/package name (as on pypi or in 'import' statement)
 Name:		python3-%{module}
 Version:	0.7.0
-Release:	3
+Release:	4
 License:	MIT
 Group:		Libraries/Python
 Source0:	https://pypi.debian.net/installer/%{module}-%{version}.tar.gz
@@ -28,8 +28,12 @@ BuildRequires:	python3-modules >= 1:3.2
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 2.044
 %if %{with doc}
-BuildRequires:	sphinx-pdg-3
+BuildRequires:	python3-furo
+BuildRequires:	python3-mdit-py-plugins
+BuildRequires:	python3-myst_parser
+BuildRequires:	python3-sphinx_argparse
 BuildRequires:	python3-sphinx_argparse_cli
+BuildRequires:	sphinx-pdg-3
 %endif
 Requires:	python3-modules >= 1:3.2
 BuildArch:	noarch
