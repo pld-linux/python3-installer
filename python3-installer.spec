@@ -1,6 +1,7 @@
+#
 # Conditional build:
-%bcond_without	doc	# API documentation
-%bcond_without	tests	# unit tests
+%bcond_without	doc		# API documentation
+%bcond_without	tests		# unit tests
 %bcond_with	bootstrap	# bootsrapping without build and install installed
 
 %if %{with bootstrap}
@@ -14,7 +15,7 @@
 
 %define		module	installer
 Summary:	A library for installing Python wheels
-# Name must match the python module/package name (as on pypi or in 'import' statement)
+Summary(pl.UTF-8):	Biblioteka do instalowania pythonowych pakietów wheel
 Name:		python3-%{module}
 Version:	0.7.0
 Release:	5
@@ -47,6 +48,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This is a low-level library for installing a Python package from a
 wheel distribution. It provides basic functionality and abstractions
 for handling wheels and installing packages from wheels.
+
+%description -l pl.UTF-8
+Ten pakiet to niskopoziomowa biblioteka do instalowania pakietów
+Pythona dystrybuowanych w formacie wheel. Zapewnia podstawową
+funkcjonalność oraz warstwę abstrakcji do obsługi pakietów wheel oraz
+instalowania pakietów z plików wheel.
 
 %package apidocs
 Summary:	API documentation for Python %{module} module
