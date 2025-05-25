@@ -9,10 +9,6 @@
 %undefine	with_tests
 %endif
 
-%ifarch x32
-%undefine	with_doc
-%endif
-
 %define		module	installer
 Summary:	A library for installing Python wheels
 Summary(pl.UTF-8):	Biblioteka do instalowania pythonowych pakietów wheel
@@ -25,22 +21,22 @@ Source0:	https://pypi.debian.net/installer/%{module}-%{version}.tar.gz
 # Source0-md5:	d961d1105c9270049528b1167ed021bc
 URL:		https://pypi.org/project/installer/
 BuildRequires:	python3-build
+BuildRequires:	python3-flit_core >= 3.2.0
+BuildRequires:	python3-flit_core < 4
 %{!?with_bootstrap:BuildRequires:	python3-installer}
-BuildRequires:	python3-modules >= 1:3.2
+BuildRequires:	python3-modules >= 1:3.7
 %if %{with tests}
-#BuildRequires:	python3-
+BuildRequires:	python3-pytest
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 2.044
 %if %{with doc}
 BuildRequires:	python3-furo
-BuildRequires:	python3-mdit-py-plugins
 BuildRequires:	python3-myst_parser
 BuildRequires:	python3-sphinx_argparse
-BuildRequires:	python3-sphinx_argparse_cli
 BuildRequires:	sphinx-pdg-3
 %endif
-Requires:	python3-modules >= 1:3.2
+Requires:	python3-modules >= 1:3.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -74,7 +70,6 @@ Dokumentacja API modułu Pythona %{module}.
 
 %if %{with tests}
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
-PYTEST_PLUGINS= \
 %{__python3} -m pytest tests
 %endif
 
@@ -98,7 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CONTRIBUTING.md README.md
+%doc CONTRIBUTING.md README.md docs/changelog.md
 %{py3_sitescriptdir}/%{module}
 %{py3_sitescriptdir}/%{module}-%{version}.dist-info
 
